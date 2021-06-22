@@ -18,8 +18,13 @@ function App() {
       {
         duration: 36000,
         iterations: Infinity
-      }
+      },
+      
+      
     ),
+   
+    
+    
 
       background2Movement = background2.current.animate([
         { transform: 'translate(100%,0)' },
@@ -32,49 +37,54 @@ function App() {
         }
       ),
 
-     
-     foreground1Movement = foreground1.current.animate([
-      { transform: 'translate(100%,0)' },
-      { transform: 'translate(-100%,0)' },
 
-    ],
-      {
-        duration: 12000,
-        iterations: Infinity
-      }
-    ),
+      foreground1Movement = foreground1.current.animate([
+        { transform: 'translate(100%,0)' },
+        { transform: 'translate(-100%,0)' },
+
+      ],
+        {
+          duration: 12000,
+          iterations: Infinity
+        },
+        
+      ),
 
 
-     
-     foreground2Movement = foreground2.current.animate([
-      { transform: 'translate(100%,0)' },
-      { transform: 'translate(-100%,0)' },
 
-    ],
-      {
-        duration: 12000,
-        iterations: Infinity
-      }
-    ),
+      foreground2Movement = foreground2.current.animate([
+        { transform: 'translate(100%,0)' },
+        { transform: 'translate(-100%,0)' },
 
-     
+      ],
+        {
+          duration: 12000,
+          iterations: Infinity
+        }
+      ),
 
-     redQueen_alice = redQueen_alice_sprite.current.animate([
-      { transform: 'translate(0,0)' },
-      { transform: 'translate(0,-100%)' }],
-      {
-        easing: 'steps(7, end)',
-        direction: "reverse",
-        duration: 600,
-        playbackRate: 1,
-        iterations: Infinity
-      });
+
+
+      redQueen_alice = redQueen_alice_sprite.current.animate([
+        { transform: 'translate(0,0)' },
+        { transform: 'translate(0,-100%)' }],
+        {
+          easing: 'steps(7, end)',
+          direction: "reverse",
+          duration: 600,
+          playbackRate: 1,
+          iterations: Infinity
+        });
 
     const sceneries = [foreground1Movement, foreground2Movement, background1Movement, background2Movement];
-      
+
     const adjustBackgroundPlayback = function () {
 
-      if (redQueen_alice.playbackRate > 1.2) {
+      if (redQueen_alice.playbackRate < .8) {
+        sceneries.forEach(function (anim) {
+          anim.playbackRate = redQueen_alice.playbackRate / 2 * -1;
+        });
+      } else if (redQueen_alice.playbackRate > 1.2) {
         sceneries.forEach(function (anim) {
           anim.playbackRate = redQueen_alice.playbackRate / 2;
         });
@@ -108,8 +118,8 @@ function App() {
     <div className="wrapper" >
       <div className="sky"></div>
       <div className="earth">
-        <div  id="red-queen_and_alice">
-          <img ref={redQueen_alice_sprite}  id="red-queen_and_alice_sprite" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/sprite_running-alice-queen_small.png" srcSet="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/sprite_running-alice-queen.png 2x" alt="Alice and the Red Queen running to stay in place." />
+        <div id="red-queen_and_alice">
+          <img ref={redQueen_alice_sprite} id="red-queen_and_alice_sprite" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/sprite_running-alice-queen_small.png" srcSet="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/sprite_running-alice-queen.png 2x" alt="Alice and the Red Queen running to stay in place." />
         </div>
       </div>
 
